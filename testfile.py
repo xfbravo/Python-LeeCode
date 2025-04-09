@@ -8,3 +8,5 @@ d=4
 print(d)
 e=5
 print(e)
+f=6
+print(f)
