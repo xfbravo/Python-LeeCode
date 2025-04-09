@@ -1,0 +1,15 @@
+本激活方法适用于 2022,2023,2024全系列版本；
+
+## JetBrains 全家桶 激活教程 https://www.ddkk.com/zhuanlan/jihuo/?r=qjt
+## JetBrains 全家桶 激活教程 https://www.ddkk.com/zhuanlan/jihuo/?r=qjt
+## JetBrains 全家桶 激活教程 https://www.ddkk.com/zhuanlan/jihuo/?r=qjt
+## JetBrains 全家桶 激活教程 https://www.ddkk.com/zhuanlan/jihuo/?r=qjt
+## JetBrains 全家桶 激活教程 https://www.ddkk.com/zhuanlan/jihuo/?r=qjt
+## JetBrains 全家桶 激活教程 https://www.ddkk.com/zhuanlan/jihuo/?r=qjt
+## JetBrains 全家桶 激活教程 https://www.ddkk.com/zhuanlan/jihuo/?r=qjt
+
+如果你之前安装过 IDEA, 那么修改过的 hosts 文件要还原回去、引用过的补丁要移除掉, 不然可能会与本文提供的补丁有冲突，出现各种奇奇怪怪的问题。
+
+在以下目录，删除配置文件
+ 
+C:\Users\【系统用户名】\AppData\Roaming\JetBrains\
