@@ -1,0 +1,16 @@
+tpl=('jack','tom','jerry')
+print(tpl)
+print(tpl[1])
+print(f'type(tpl)={type(tpl)}')
+print(tpl[1:3:1])
+print(tpl[::-1])
+#tpl[0]='rose' //TypeError: 'tuple' object does not support item assignment
+print(id(tpl))
+tpl=('rose','lily','daisy',[1,2,3])
+print(id(tpl))
+tpl[3][0]=4
+print(tpl)
+tpl[3].append(5)
+print(tpl)
+tpl=([1,2,3],[4,5,6])
+print(id(tpl))
