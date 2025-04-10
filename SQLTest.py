@@ -36,7 +36,7 @@ try:
                     FROM student,sc\
                     WHERE student.sno=sc.sno \
                     GROUP BY student.sno\
-                    HAVING AVG(sc.grade)>=80"
+                    HAVING AVG(sc.grade)>=90"
     )
     result = cursor.fetchall()
     for row in result:
