@@ -38,7 +38,6 @@ class Solution:
             prev_group_end = group_start
 # Example usage:
 head = ListNode(1, ListNode(2, ListNode(3, ListNode(4, ListNode(5)))))
-print()
 k=2
 solution = Solution()
 result = solution.reverseKGroup(head, k)
