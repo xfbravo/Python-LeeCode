@@ -32,11 +32,12 @@ try:
     # result = cursor.fetchall()
     # for row in result:
     #     print(row)
-    cursor.execute("SELECT student.sno,student.sname,student.sage,student.ssex,student.sdept,AVG(Grade)\
+    exp="SELECT student.sno,student.sname,student.sage,student.ssex,student.sdept,AVG(Grade)\
                     FROM student,sc\
                     WHERE student.sno=sc.sno \
                     GROUP BY student.sno\
                     HAVING AVG(sc.grade)>=90"
+    cursor.execute(exp
     )
     result = cursor.fetchall()
     for row in result:
