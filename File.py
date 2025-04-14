@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # with open("../files/wyx.txt", 'r', encoding='utf-8') as f:
 #     lines = f.readlines()
 #     for line in lines:
@@ -45,7 +44,6 @@ print(json.loads(p))
 #     my_dict=json.load(file)
 #     print(type(my_dict))
 #     print(my_dict)
-=======
 with open("../files/wyx.txt", 'r', encoding='utf-8') as f:
     lines = f.readlines()
     for line in lines:
@@ -53,4 +51,3 @@ with open("../files/wyx.txt", 'r', encoding='utf-8') as f:
 
 with open("../files/xf.txt", 'a', encoding='utf-8') as f:
     f.write("hello world\n")
->>>>>>> 8f3e4131dc0866e63fd0c6ee4252c99e81e9e116
