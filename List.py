@@ -86,24 +86,38 @@ import requests
 # print(id(lst3[3]))
 # print(id(lst4[3]))
 
-from time import time
-#排序
-n=100000
-lst=[random.randrange(0,n) for i in range(n)]
-start=time()
-lst.sort()
-end=time()
-print(f'sort time={end-start}')
-n=1000000
-lst=[random.randrange(0,n) for i in range(n)]
-start=time()
-lst.sort()
-end=time()
-print(f'sort time={end-start}')
-n=10000000
-lst=[random.randrange(0,n) for i in range(n)]
-start=time()
-lst.sort()
-end=time()
-print(f'sort time={end-start}')
-#由结果可知，时间复杂度为O(nlogn)
+# from time import time
+# #排序
+# n=100000
+# lst=[random.randrange(0,n) for i in range(n)]
+# start=time()
+# lst.sort()
+# end=time()
+# print(f'sort time={end-start}')
+# n=1000000
+# lst=[random.randrange(0,n) for i in range(n)]
+# start=time()
+# lst.sort()
+# end=time()
+# print(f'sort time={end-start}')
+# n=10000000
+# lst=[random.randrange(0,n) for i in range(n)]
+# start=time()
+# lst.sort()
+# end=time()
+# print(f'sort time={end-start}')
+# #由结果可知，时间复杂度为O(nlogn)
+
+def swap(a,b)->None:
+    """
+    交换两个数
+    :param a: 数字
+    :param b: 数字
+    :return: None
+    """
+    temp=a
+    a=b
+    b=temp
+list=[1,2,3,4,5]
+swap(list[0],list[1])
+print(list)
