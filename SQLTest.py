@@ -36,9 +36,9 @@ try:
                     FROM student,sc\
                     WHERE student.sno=sc.sno \
                     GROUP BY student.sno\
-                    HAVING AVG(sc.grade)>=90"
-    cursor.execute(exp
-    )
+                    HAVING AVG(sc.grade)>=90\
+                    ORDER BY AVG(Grade) DESC"
+    cursor.execute(exp)
     result = cursor.fetchall()
     for row in result:
         print(row)
