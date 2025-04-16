@@ -9,3 +9,16 @@
 # g=fib(1000)
 # for i in range(1000-1):
 #     print(next(g))
+def gen():
+    i=0
+    while i<5:
+        temp=yield i
+        print("temp:",temp)
+        i+=1
+g=gen()
+
+print(g.send(None))
+print(g.send("hello"))
+print(g.send("world"))
+print(g.send("python"))
+
