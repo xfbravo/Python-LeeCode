@@ -107,17 +107,36 @@ import requests
 # end=time()
 # print(f'sort time={end-start}')
 # #由结果可知，时间复杂度为O(nlogn)
-
-def swap(a,b)->None:
+class people:
+    def __init__(self,name:str,age:int)->None:
+        """
+        初始化函数
+        :param name: 姓名
+        :param age: 年龄
+        """
+        self.name=name
+        self.age=age
+    def __str__(self)->str:
+        """
+        重写__str__方法
+        :return: 字符串
+        """
+        return f'姓名：{self.name} 年龄：{self.age}'
+def swap(lst:list,a,b):
     """
-    交换两个数
-    :param a: 数字
-    :param b: 数字
+    交换函数
+    :param lst: 列表
+    :param a: 下标1
+    :param b: 下标2
     :return: None
     """
-    temp=a
-    a=b
-    b=temp
+    temp=lst[a]
+    lst[a]=lst[b]
+    lst[b]=temp
 list=[1,2,3,4,5]
-swap(list[0],list[1])
+swap(list,1,2)
 print(list)
+lst=[people('张三',20),people('李四',30),people('王五',40)]
+swap(lst,0,1)
+for item in lst:
+    print(item)
