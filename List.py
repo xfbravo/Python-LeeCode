@@ -1,4 +1,5 @@
 import copy
+import random
 from copy import deepcopy
 import requests
 # lst=[1,2,3,4,5]
@@ -72,15 +73,37 @@ import requests
 #     print(loop[i],end='')
 
 #list的拷贝
-lst1=[1,2,3,[1,2,3],4,5]
-lst2=lst1#引用
-lst3=lst1.copy()#拷贝
-lst4=deepcopy(lst1)#深拷贝
-print(lst1,id(lst1))
-print(lst2,id(lst2))
-print(lst3,id(lst3))
-print(lst4,id(lst4))
-print(id(lst1[3]))
-print(id(lst2[3]))
-print(id(lst3[3]))
-print(id(lst4[3]))
+# lst1=[1,2,3,[1,2,3],4,5]
+# lst2=lst1#引用
+# lst3=lst1.copy()#拷贝
+# lst4=deepcopy(lst1)#深拷贝
+# print(lst1,id(lst1))
+# print(lst2,id(lst2))
+# print(lst3,id(lst3))
+# print(lst4,id(lst4))
+# print(id(lst1[3]))
+# print(id(lst2[3]))
+# print(id(lst3[3]))
+# print(id(lst4[3]))
+
+from time import time
+#排序
+n=100000
+lst=[random.randrange(0,n) for i in range(n)]
+start=time()
+lst.sort()
+end=time()
+print(f'sort time={end-start}')
+n=1000000
+lst=[random.randrange(0,n) for i in range(n)]
+start=time()
+lst.sort()
+end=time()
+print(f'sort time={end-start}')
+n=10000000
+lst=[random.randrange(0,n) for i in range(n)]
+start=time()
+lst.sort()
+end=time()
+print(f'sort time={end-start}')
+#由结果可知，时间复杂度为O(nlogn)
