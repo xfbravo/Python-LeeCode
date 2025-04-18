@@ -123,13 +123,6 @@ class people:
         """
         return f'姓名：{self.name} 年龄：{self.age}'
 def swap(lst:list,a,b):
-    """
-    交换函数
-    :param lst: 列表
-    :param a: 下标1
-    :param b: 下标2
-    :return: None
-    """
     temp=lst[a]
     lst[a]=lst[b]
     lst[b]=temp

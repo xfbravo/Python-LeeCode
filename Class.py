@@ -19,10 +19,10 @@ class Person:
         print(f"你好, 我是{self.name}, 我{self.age}岁了")
 # 创建类的实例
 person = Person("张三", 30)
-print(person.name)
 person.greet()
-print(person)
+print(person.name)
 #%%
+print(person)
 Person.eat()
 Person.sleep()
 person.eat()
