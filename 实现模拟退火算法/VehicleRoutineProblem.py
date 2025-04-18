@@ -38,11 +38,17 @@ def total_distance(routes,spots):
     return distance
 
 #检查是否满足约束条件
-def is_valid_solution(routes,spots,capacity):
+def is_valid_solution(routes, spots, capacity):
+    # 检查每辆车的载重是否超出容量
     for route in routes:
-        load=sum(spots[customer][2] for customer in route if customer !=0)
-        if load >capacity:
+        load = sum(spots[customer][2] for customer in route if customer != 0)
+        if load > capacity:
             return False
+    # 检查是否所有客户点都被分配
+    assigned_customers = set(customer for route in routes for customer in route)
+    all_customers = set(range(len(spots)))
+    if not all_customers.issubset(assigned_customers):
+        return False
     return True
 
 #生成初始解
@@ -111,7 +117,7 @@ def simulated_annealing(spots, car_num, capacity, initial_temp, alpha, max_itera
 
         #退火
         temperature *= alpha
-        if temperature < 1e-50:
+        if temperature < 1e-30:
             break
     #返回最优解和最优距离
     return best_solution, best_distance
@@ -156,13 +162,24 @@ for i in range(spot_num):
         print(e)
         exit()
 
+
 initial_temp=10000 # 初始温度
 alpha=0.97 # 降温系数
 max_iterations=100000 # 最大迭代次数
-start=time.time()# 记录退火开始时间
 solution,distance=simulated_annealing(spots,car_num,capacity,initial_temp,alpha,max_iterations)
-end=time.time()# 记录退火结束时间
-print_solution(solution)
-print("最短距离:",total_distance(solution,spots))
-print("花费时间:",(end-start))
+min_distance=distance # 初始化最小距离为当前解的距离
+best_solution=solution# 记录最优解
+total_time=0# 记录总时间
+for i in range(5):
+    start=time.time()# 记录退火开始时间
+    solution,distance=simulated_annealing(spots,car_num,capacity,initial_temp,alpha,max_iterations)
+    end=time.time()# 记录退火结束时间
+    if distance<min_distance:
+        min_distance=distance
+        best_solution=solution
+    total_time+=end-start
+# 输出结果
+print_solution(best_solution)
+print("最短距离:",min_distance)
+print("平局花费时间:",total_time/5)
 
