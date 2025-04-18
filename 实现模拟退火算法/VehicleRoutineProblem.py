@@ -50,13 +50,13 @@ def simulated_annealing(spots, car_num, capacity, initial_temp, alpha, max_itera
         new_solution = [route[:] for route in current_solution]
         car1, car2 = random.sample(range(car_num), 2)
         if random.random() < 0.5:
-            # 交换客户点
+            # 随机交换car1和car2的其中两个客户点
             if len(new_solution[car1]) > 2 and len(new_solution[car2]) > 2:
                 index1 = random.randint(1, len(new_solution[car1]) - 2)
                 index2 = random.randint(1, len(new_solution[car2]) - 2)
                 new_solution[car1][index1], new_solution[car2][index2] = new_solution[car2][index2], new_solution[car1][index1]
         else:
-            # 路径反转
+            # 随机选择一辆车，随机选择这辆车的路径的两个区间进行路径反转（前提是至少有两个客户，也就是路径长度最少为4）
             car = random.randint(0, car_num - 1)
             if len(new_solution[car]) > 3:
                 start = random.randint(1, len(new_solution[car]) - 3)
