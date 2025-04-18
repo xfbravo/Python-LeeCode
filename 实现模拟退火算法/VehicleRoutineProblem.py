@@ -1,3 +1,27 @@
+'''
+总体思路：
+1.函数：
+    1.1 calculate_distance:计算两个点之间的距离
+    1.2 total_distance:计算总的距离
+    1.3 is_valid_solution:检查是否满足约束条件
+    1.4 generate_initial_solution:生成初始解
+2.模拟退火算法：
+    2.1 生成初始解，计算初始解的总距离，将最优解和最优距离先设置为初始解和初始距离
+    2.2 迭代max_iterations次,每次迭代中:
+        2.2.1 生成新解，在原来解的基础上进行随机的修改
+        2.2.2 判断新解是否满足约束条件
+        2.2.3 如果不满足约束条件,直接跳过。如果满足约束条件,计算新解的总距离,并计算新解与旧解的差值delta
+        2.2.4 如果delta小于0,说明新解更好，直接接受新解，并将当前解设置为新解。
+        2.2.5 如果delta大于0,不舍弃新解,仍然以一定的概率接受新解（跳出局部最优,以寻找全局最优）,并将当前解设置为新解。
+        2.2.6 比较当前解与最优解的距离，如果当前解更好，则更新最优解和最优距离。
+        2.2.7 退火: 温度逐渐降低,直到小于1e-50为止。
+        2.2.8 返回最优解和最优距离
+3.输出结果：
+    3.1 输出每辆车的路径
+    3.2 输出最短距离
+    3.3 输出花费时间
+
+'''
 import math
 import random
 import time
@@ -22,18 +46,22 @@ def is_valid_solution(routes,spots,capacity):
     return True
 
 #生成初始解
-def generate_initial_solution(spots,capacity,spot_num,car_num):
+def generate_initial_solution(spots, capacity, spot_num, car_num):
     routes = [[] for _ in range(car_num)]
-    car_capacity=[capacity for _ in range(car_num)]
-    for i in range(1,spot_num):
+    car_capacity = [capacity for _ in range(car_num)]
+    customers = list(range(1, spot_num))  # 客户点编号（不包括配送中心）
+    random.shuffle(customers)  # 随机打乱客户点顺序
+
+    for customer in customers:
         for j in range(car_num):
-            if spots[i][2]<car_capacity[j]:
-                routes[j].append(i)
-                car_capacity[j]-=spots[i][2]
+            if spots[customer][2] <= car_capacity[j]:
+                routes[j].append(customer)
+                car_capacity[j] -= spots[customer][2]
                 break
+
     for route in routes:
-        route.insert(0, 0)
-        route.append(0)
+        route.insert(0, 0)  # 起点为配送中心
+        route.append(0)    # 终点为配送中心
     return routes
 
 #模拟退火算法
@@ -72,7 +100,7 @@ def simulated_annealing(spots, car_num, capacity, initial_temp, alpha, max_itera
         delta = new_distance - current_distance
 
         #以一定的概率接受更差的解（跳出局部最优，以寻找全局最优），如果新解更好，那么直接接受
-        if delta < 0 or random.random() < math.exp(-delta / temperature):
+        if delta < 0 or random.random() < math.exp(-delta / temperature):#随着温度的降低，接受更差解的概率也降低
             current_solution = new_solution
             current_distance = new_distance
 
@@ -83,7 +111,7 @@ def simulated_annealing(spots, car_num, capacity, initial_temp, alpha, max_itera
 
         #退火
         temperature *= alpha
-        if temperature < 1e-10:
+        if temperature < 1e-50:
             break
     #返回最优解和最优距离
     return best_solution, best_distance
@@ -130,10 +158,11 @@ for i in range(spot_num):
 
 initial_temp=10000 # 初始温度
 alpha=0.97 # 降温系数
-max_iterations=10000 # 最大迭代次数
-start=time.time()
+max_iterations=100000 # 最大迭代次数
+start=time.time()# 记录退火开始时间
 solution,distance=simulated_annealing(spots,car_num,capacity,initial_temp,alpha,max_iterations)
-end=time.time()
+end=time.time()# 记录退火结束时间
 print_solution(solution)
 print("最短距离:",total_distance(solution,spots))
 print("花费时间:",(end-start))
+
