@@ -1,3 +1,4 @@
+#%%
 class Person:
     @classmethod
     def sleep(cls):
@@ -16,13 +17,31 @@ class Person:
 
     def greet(self):
         print(f"你好, 我是{self.name}, 我{self.age}岁了")
-
 # 创建类的实例
 person = Person("张三", 30)
 print(person.name)
 person.greet()
 print(person)
+#%%
 Person.eat()
 Person.sleep()
 person.eat()
 person.sleep()
+
+# %%
+if __name__ == "__main__":
+    # 创建对象
+    person1 = Person("Alice", 25)
+    person2 = Person("Bob", 30)
+
+    # 调用实例方法
+    person1.greet()
+    person2.greet()
+
+    # 调用类方法和静态方法
+    Person.sleep()
+    Person.eat()
+
+    # 删除对象
+    del person1
+    del person2
