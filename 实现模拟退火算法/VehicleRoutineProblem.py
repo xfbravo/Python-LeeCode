@@ -46,7 +46,7 @@ def simulated_annealing(spots, car_num, capacity, initial_temp, alpha, max_itera
     temperature = initial_temp
 
     for _ in range(max_iterations):
-        # 生成新解，随机选择两辆车中的某个节点进行交换或路径反转
+        # 生成新解，在原来解的基础上随机选择两辆车中的某个节点进行交换或路径反转
         new_solution = [route[:] for route in current_solution]
         car1, car2 = random.sample(range(car_num), 2)
         if random.random() < 0.5:
@@ -56,15 +56,15 @@ def simulated_annealing(spots, car_num, capacity, initial_temp, alpha, max_itera
                 index2 = random.randint(1, len(new_solution[car2]) - 2)
                 new_solution[car1][index1], new_solution[car2][index2] = new_solution[car2][index2], new_solution[car1][index1]
         else:
-            # 随机选择一辆车，随机选择这辆车的路径的两个区间进行路径反转（前提是至少有两个客户，也就是路径长度最少为4）
+            # 随机选择一辆车，随机选择这辆车的路径的一个区间进行路径反转（前提是至少有两个客户，也就是路径长度最少为4）
             car = random.randint(0, car_num - 1)
             if len(new_solution[car]) > 3:
                 start = random.randint(1, len(new_solution[car]) - 3)
                 end = random.randint(start + 1, len(new_solution[car]) - 2)
                 new_solution[car][start:end+1] = reversed(new_solution[car][start:end+1])
 
+        #如果不符合条件，直接跳过，不用进行退火
         if not is_valid_solution(new_solution, spots, capacity):
-            #如果不符合条件，直接跳过，不用进行退火
             continue
         
         #如果符合条件，计算距离，如果距离小于当前计算的距离，那么更新当前计算的距离
@@ -87,6 +87,14 @@ def simulated_annealing(spots, car_num, capacity, initial_temp, alpha, max_itera
             break
     #返回最优解和最优距离
     return best_solution, best_distance
+
+#输出结果
+def print_solution(solution):
+    for i, route in enumerate(solution):
+        print(f"车 {i+1}:", end=" ")
+        for j in range(len(route)-1):
+            print(f"{route[j]+1} -> ", end=" ")
+        print(f"{route[-1]+1}")
 
 parts=input("请输入站点数量和车的数量（用空格隔开）:").split()
 spot_num=int(parts[0]) # 站点数量
@@ -126,5 +134,6 @@ max_iterations=10000 # 最大迭代次数
 start=time.time()
 solution,distance=simulated_annealing(spots,car_num,capacity,initial_temp,alpha,max_iterations)
 end=time.time()
+print_solution(solution)
 print("最短距离:",total_distance(solution,spots))
 print("花费时间:",(end-start))
