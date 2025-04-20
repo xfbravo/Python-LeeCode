@@ -3,7 +3,7 @@
 1.函数：
     1.1 calculate_distance:计算两个点之间的距离
     1.2 total_distance:计算总的距离
-    1.3 is_valid_solution:检查是否满足约束条件
+    1.3 is_valid_solution:检查是否满足约束条件，检查每辆车的载重是否超出容量，检查是否所有客户点都被分配
     1.4 generate_initial_solution:生成初始解
 2.模拟退火算法：
     2.1 生成初始解，计算初始解的总距离，将最优解和最优距离先设置为初始解和初始距离
@@ -15,7 +15,7 @@
         2.2.5 如果delta大于0,不舍弃新解,仍然以一定的概率接受新解（跳出局部最优,以寻找全局最优）,并将当前解设置为新解。
         2.2.6 比较当前解与最优解的距离，如果当前解更好，则更新最优解和最优距离。
         2.2.7 退火: 温度逐渐降低,直到小于1e-50为止。
-        2.2.8 返回最优解和最优距离
+    2.3 返回最优解和最优距离
 3.输出结果：
     3.1 输出每辆车的路径
     3.2 输出最短距离
@@ -101,7 +101,7 @@ def simulated_annealing(spots, car_num, capacity, initial_temp, alpha, max_itera
         if not is_valid_solution(new_solution, spots, capacity):
             continue
         
-        #如果符合条件，计算距离，如果距离小于当前计算的距离，那么更新当前计算的距离
+        #如果符合条件，计算距离
         new_distance = total_distance(new_solution, spots)
         delta = new_distance - current_distance
 
