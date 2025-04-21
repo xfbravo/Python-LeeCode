@@ -80,22 +80,31 @@ def simulated_annealing(spots, car_num, capacity, initial_temp, alpha, max_itera
     temperature = initial_temp
 
     for _ in range(max_iterations):
-        # 生成新解，在原来解的基础上随机选择两辆车中的某个节点进行交换或路径反转
+        # 生成新解，在原来解的基础上随机选择两辆车中的某个节点进行交换或路径反转或者移动客户到另一辆车
         new_solution = [route[:] for route in current_solution]
-        car1, car2 = random.sample(range(car_num), 2)
-        if random.random() < 0.5:
+        odds = random.random()
+        if odds < 0.33:
             # 随机交换car1和car2的其中两个客户点
+            car1, car2 = random.sample(range(car_num), 2)
             if len(new_solution[car1]) > 2 and len(new_solution[car2]) > 2:
                 index1 = random.randint(1, len(new_solution[car1]) - 2)
                 index2 = random.randint(1, len(new_solution[car2]) - 2)
                 new_solution[car1][index1], new_solution[car2][index2] = new_solution[car2][index2], new_solution[car1][index1]
-        else:
+        elif odds < 0.66:
             # 随机选择一辆车，随机选择这辆车的路径的一个区间进行路径反转（前提是至少有两个客户，也就是路径长度最少为4）
             car = random.randint(0, car_num - 1)
             if len(new_solution[car]) > 3:
                 start = random.randint(1, len(new_solution[car]) - 3)
                 end = random.randint(start + 1, len(new_solution[car]) - 2)
                 new_solution[car][start:end+1] = reversed(new_solution[car][start:end+1])
+        else:
+            #随机选择两辆车，随机选择一号车的一个客户点，将其插入到二号车的路径中的随机一个地方
+            car1, car2 = random.sample(range(car_num), 2)
+            if len(new_solution[car1]) > 2 and len(new_solution[car2]) > 2:
+                index1 = random.randint(1, len(new_solution[car1]) - 2)
+                index2 = random.randint(1, len(new_solution[car2]) - 2)
+                customer = new_solution[car1].pop(index1)
+                new_solution[car2].insert(index2, customer)
 
         #如果不符合条件，直接跳过，不用进行退火
         if not is_valid_solution(new_solution, spots, capacity):
