@@ -79,6 +79,7 @@ def generate_initial_solution(spots, capacity, spot_num, car_num):
 
 # 模拟退火算法
 def simulated_annealing(spots, car_num, capacity, initial_temp, alpha, max_iterations):
+    global count
     # 生成初始解，计算初始解的距离，将最优解和最优距离先设置为初始解和初始距离
     current_solution = generate_initial_solution(spots, capacity, len(spots), car_num)
     current_distance = total_distance(current_solution, spots)
@@ -189,7 +190,7 @@ for i in range(spot_num):
 
 
 initial_temp = 10000  # 初始温度
-alpha = 0.97  # 降温系数
+alpha = 0.93  # 降温系数
 max_iterations = 100000  # 最大迭代次数
 solution, distance = simulated_annealing(
     spots, car_num, capacity, initial_temp, alpha, max_iterations
@@ -197,7 +198,7 @@ solution, distance = simulated_annealing(
 min_distance = distance  # 初始化最小距离为当前解的距离
 best_solution = solution  # 记录最优解
 total_time = 0  # 记录总时间
-for i in range(5):
+for i in range(10):
     start = time.time()  # 记录退火开始时间
     solution, distance = simulated_annealing(
         spots, car_num, capacity, initial_temp, alpha, max_iterations
@@ -210,4 +211,4 @@ for i in range(5):
 # 输出结果
 print_solution(best_solution)
 print("最短距离:", min_distance)
-print("平局花费时间:", total_time / 5)
+print("平局花费时间:", total_time / 10)
