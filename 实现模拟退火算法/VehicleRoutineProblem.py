@@ -38,7 +38,7 @@ def total_distance(routes, spots):
     distance = 0
     for route in routes:
         for i in range(len(route) - 1):
-            distance += calculate_distance(spots[route[i]], spots[route[i + 1]])
+            distance += distances[route[i]][route[i+1]]
     return distance
 
 
@@ -174,6 +174,12 @@ for i in range(spot_num):
     except ValueError as e:
         print(e)
         exit()
+
+#记录任意两个位置之间的距离
+distances=[[0 for j in range(spot_num)]for i in range(spot_num)]
+for i in range(spot_num):
+    for j in range(spot_num):
+        distances[i][j]=calculate_distance(spots[i],spots[j])
 
 # 读取每个客户的需求量
 print("请输入每个客户的需求量（格式：客户编号 需求量）:")
